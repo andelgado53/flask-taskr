@@ -1,6 +1,7 @@
 import sqlite3
 from functools import wraps
 from flask import Flask, flash, redirect, render_template, request, session, url_for, g
+from forms import AddTaskForm
 
 
 app = Flask(__name__)
@@ -62,7 +63,7 @@ def tasks():
 	     for row in cur.fetchall()
 	     ]
 	g.db.close()
-	return render_template('tasks.html', form=AddTAskForm(request.form),
+	return render_template('tasks.html', form=AddTaskForm(request.form),
 		open_tasks=open_tasks, closed_tasks=closed_tasks
 		)
 
@@ -77,7 +78,7 @@ def new_task():
 
 	if not name or not date or not priority:
 		flash('All fields are required. Please try again.')
-		return redirect(url_for('task'))
+		return redirect(url_for('tasks'))
 	else:
 		g.db.execute('insert into task (name, due_date, priority, status) values (?, ?, ?, 1)',
 			[request.form['name'], request.form['due_date'], request.form['priority']]
@@ -103,11 +104,11 @@ def complete(task_id):
 def delete_entry(task_id):
 
 	g.db = connect_db()
-	g.db.execute(' delte from task where task_id =' + str(task_id))
+	g.db.execute(' delete from task where task_id =' + str(task_id))
 	g.db.commit()
-	g.db.clos()
+	g.db.close()
 	flash('The task was deleted.')
-	return redirect(url_for('task'))
+	return redirect(url_for('tasks'))
 
 
 

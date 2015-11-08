@@ -57,10 +57,10 @@
 			{% for task in open_tasks %}
 			<tr>
 				<td width="300px">{{ task.name }}</td>
-				<td width="100px">{{ task.due_name }}</td>
+				<td width="100px">{{ task.due_date }}</td>
 				<td width="50px">{{ task.priority }}</td>
-				<td><a href="{{ url_for('delete_entry', task_id=task.task_id)">Delete</a>
-					- <a href="{{ url_for('complete', task_id=task.task_id)">Mark as Complete</a>
+				<td><a href="{{ url_for('delete_entry', task_id=task.task_id) }}">Delete</a>
+					- <a href="{{ url_for('complete', task_id=task.task_id) }}">Mark as Complete</a>
 				</td>
 			</tr>
 			{% endfor %}
@@ -72,7 +72,7 @@
 <div class="entries">
 	<br>
 	<br>
-	<h2>Open tasks:</h2>
+	<h2>Closed tasks:</h2>
 	<div class="datagrid">
 		<table>
 			<thead>
@@ -86,9 +86,9 @@
 			{% for task in closed_tasks %}
 			<tr>
 				<td width="300px">{{ task.name }}</td>
-				<td width="100px">{{ task.due_name }}</td>
+				<td width="100px">{{ task.due_date }}</td>
 				<td width="50px">{{ task.priority }}</td>
-				<td><a href="{{ url_for('delete_entry', task_id=task.task_id)">Delete</a>
+				<td><a href="{{ url_for('delete_entry', task_id=task.task_id) }}">Delete</a>
 				</td>
 			</tr>
 			{% endfor %}
@@ -98,11 +98,5 @@
 	<br>
 </div>
 
-
-
-
-
-
-
-		</table>
+{% endblock %}
 
